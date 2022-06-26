@@ -184,7 +184,7 @@ std::istream& operator >> (std::istream& is, Date& original)
 	return is;
 }
 
-std::ostream& operator << (std::ostream& os, Date& original)
+std::ostream& operator << (std::ostream& os, const Date& original)
 {
 	os << original.day << " " << original.month << " " << original.year << "\n";
 	return os;
