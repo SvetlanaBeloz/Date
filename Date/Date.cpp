@@ -3,7 +3,7 @@
 Date::Date()
 {
 	SYSTEMTIME st;
-	GetSystemTime(&st);
+	GetLocalTime(&st);
 	day = st.wDay;
 	month = st.wMonth;
 	year = st.wYear;
@@ -188,4 +188,135 @@ std::ostream& operator << (std::ostream& os, Date& original)
 {
 	os << original.day << " " << original.month << " " << original.year << "\n";
 	return os;
+}
+
+int Date::operator[](int index)
+{
+	if (index == 0)
+		return day;
+	else if (index == 1)
+		return month;
+	else if (index == 2)
+		return year;
+	else throw "Incorrect index!";
+}
+
+Date& Date::operator ++()
+{
+	if (day == Date::maxDayInMonth1 && (month == Date::JANUARY || month == Date::MARCH || month == Date::MAY || month == Date::JULY
+		|| month == Date::AUGUST || month == Date::OCTOBER) || day == Date::maxDayInMonth2 && (month == Date::APRIL || month == Date::JUNE
+			|| month == Date::SEPTEMBER || month == Date::NOVEMBER) || day == Date::maxDayFebruaryLeapYear &&
+		(month == Date::FEBRUARY && year % 4 == 0) || day == Date::maxDayFebruary && (month == Date::FEBRUARY && year % 4 != 0))
+	{
+		day = 1;
+		month++;
+	}
+	else if (day == Date::maxDayInMonth1 && month == Date::DECEMBER)
+	{
+		day = 1;
+		month = 1;
+		year++;
+	}
+	else
+	{
+		day++;
+	}
+	return *this;
+}
+
+Date& Date::operator ++(int)
+{
+	Date copy = *this;
+	if (day == Date::maxDayInMonth1 && (month == Date::JANUARY || month == Date::MARCH || month == Date::MAY || month == Date::JULY
+		|| month == Date::AUGUST || month == Date::OCTOBER) || day == Date::maxDayInMonth2 && (month == Date::APRIL || month == Date::JUNE
+			|| month == Date::SEPTEMBER || month == Date::NOVEMBER) || day == Date::maxDayFebruaryLeapYear &&
+		(month == Date::FEBRUARY && year % 4 == 0) || day == Date::maxDayFebruary && (month == Date::FEBRUARY && year % 4 != 0))
+	{
+		day = 1;
+		month++;
+	}
+	else if (day == Date::maxDayInMonth1 && month == Date::DECEMBER)
+	{
+		day = 1;
+		month = 1;
+		year++;
+	}
+	else
+	{
+		day++;
+	}
+	return copy;
+}
+
+Date& Date::operator --()
+{
+	if (day == 1 && (month == Date::FEBRUARY || month == Date::APRIL || month == Date::JUNE || month == Date::AUGUST
+		|| month == Date::SEPTEMBER || month == Date::NOVEMBER))
+	{
+		day = 31;
+		month--;
+	}
+	else if (day == 1 && (month == Date::MAY || month == Date::JULY || month == Date::OCTOBER || month == Date::DECEMBER))
+	{
+		day = 30;
+		month--;
+	}
+	else if (day == 1 && month == Date::MARCH && year % 4 == 0)
+	{
+		day = 29;
+		month--;
+	}
+	else if (day == 1 && month == Date::MARCH && year % 4 != 0)
+	{
+		day = 28;
+		month--;
+	}
+	else if (day == 1 && month == Date::JANUARY)
+	{
+		day = 31;
+		month = 12;
+		year--;
+	}
+	else
+	{
+		day--;
+	}
+	return *this;
+}
+
+Date& Date::operator --(int)
+{
+	Date copy = *this;
+	if (day == 1 && (month == Date::FEBRUARY || month == Date::APRIL || month == Date::JUNE || month == Date::AUGUST
+		|| month == Date::SEPTEMBER || month == Date::NOVEMBER))
+	{
+		day = 31;
+		month--;
+	}
+	else if (day == 1 && (month == Date::MAY || month == Date::JULY || month == Date::OCTOBER || month == Date::DECEMBER))
+	{
+		day = 30;
+		month--;
+	}
+	else if (day == 1 && month == Date::MARCH && year % 4 == 0)
+	{
+		day = 29;
+		month--;
+	}
+	else if (day == 1 && month == Date::MARCH && year % 4 != 0)
+	{
+		day = 28;
+		month--;
+	}
+	else if (day == 1 && month == Date::JANUARY)
+	{
+		day = 31;
+		month = 12;
+		year--;
+	}
+	else
+	{
+		day--;
+	}
+	return copy;
 }

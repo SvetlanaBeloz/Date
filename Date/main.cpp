@@ -37,4 +37,12 @@ int main()
 	std::cin >> birthday;
 	birthday.PrintDate();
 	std::cout << birthday;
+	std::cout << today[2] << std::endl;
+	Date date(15,03,2021);
+	std::cout << ++date;
+	std::cout << date++;
+	date.PrintDate();
+	std::cout << --date;
+	std::cout << date--;
+	date.PrintDate();
 }
