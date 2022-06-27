@@ -224,7 +224,7 @@ Date& Date::operator ++()
 	return *this;
 }
 
-Date& Date::operator ++(int)
+Date Date::operator ++(int)
 {
 	Date copy = *this;
 	if (day == Date::maxDayInMonth1 && (month == Date::JANUARY || month == Date::MARCH || month == Date::MAY || month == Date::JULY
@@ -284,7 +284,7 @@ Date& Date::operator --()
 	return *this;
 }
 
-Date& Date::operator --(int)
+Date Date::operator --(int)
 {
 	Date copy = *this;
 	if (day == 1 && (month == Date::FEBRUARY || month == Date::APRIL || month == Date::JUNE || month == Date::AUGUST
