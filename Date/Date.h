@@ -41,9 +41,9 @@ public:
 
 	int operator[](int index);
 	Date& operator ++();
-	Date& operator ++(int);
+	Date operator ++(int);
 	Date& operator --();
-	Date& operator --(int);
+	Date operator --(int);
 	friend int operator - (const Date& first, const Date& second);
 	friend Date operator + (const Date& first, int days);
 	friend bool operator < (const Date& first, const Date& second);
